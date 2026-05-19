@@ -1,15 +1,5 @@
 openapi: 3.1.0
 info:
-<<<<<<< HEAD
-  title: Smart Campus — Camera Stream to AI Vision API
-  version: 1.0.0
-  description: |
-    Hợp đồng API giữa Camera Stream (Consumer) và AI Vision (Provider).
-    Camera Stream gửi ảnh để AI Vision phát hiện vật thể/người.
-  contact:
-    name: Pair 01
-    email: pair01@example.edu.vn
-=======
   title: Smart Campus AI Vision Contract
   version: 1.0.0
   description: |
@@ -18,7 +8,6 @@ info:
   contact:
     name: FIT4110 Teaching Team
     email: fit4110@example.edu.vn
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
 servers:
   - url: http://localhost:4010
     description: Prism mock server
@@ -28,11 +17,7 @@ tags:
   - name: health
     description: Kiểm tra trạng thái service
   - name: vision
-<<<<<<< HEAD
-    description: Nhận dạng hình ảnh bằng AI
-=======
     description: API phân tích khuôn mặt và detection result
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
 security:
   - bearerAuth: []
 paths:
@@ -40,42 +25,21 @@ paths:
     get:
       operationId: getHealth
       summary: Kiểm tra trạng thái service
-<<<<<<< HEAD
-      description: Endpoint kiểm tra service còn hoạt động.
-      tags: [health]
-      security: []
-      responses:
-        "200":
-=======
       description: Endpoint kiểm tra service AI Vision còn hoạt động.
       tags: [health]
       security: []
       responses:
         '200':
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
           description: Service đang hoạt động
           content:
             application/json:
               schema:
-<<<<<<< HEAD
-                $ref: "#/components/schemas/HealthStatus"
-=======
                 $ref: '#/components/schemas/HealthStatus'
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
               examples:
                 ok:
                   value:
                     status: ok
                     service: ai-vision-service
-<<<<<<< HEAD
-                    time: "2026-05-14T08:00:00Z"
-
-  /vision/detect:
-    post:
-      operationId: requestDetection
-      summary: Gửi yêu cầu nhận dạng
-      description: Camera Stream gửi yêu cầu nhận dạng lên AI Vision. Trả về detectionId.
-=======
                     time: '2026-05-10T08:00:00Z'
 
   /vision/face-match:
@@ -83,43 +47,12 @@ paths:
       operationId: createFaceMatch
       summary: Gửi yêu cầu face-match tới AI Vision
       description: Consumer Core Business gửi ảnh hoặc face embedding để yêu cầu AI Vision trả kết quả face-match.
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
       tags: [vision]
       requestBody:
         required: true
         content:
           application/json:
             schema:
-<<<<<<< HEAD
-              $ref: "#/components/schemas/DetectionRequest"
-            examples:
-              personDetect:
-                value:
-                  cameraId: CAM-MAIN-01
-                  imageUrl: https://storage.campus.local/streams/cam-main-01/frame-12345.jpg
-                  timestamp: "2026-05-14T08:01:00Z"
-      responses:
-        "202":
-          description: Yêu cầu đã được tiếp nhận
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DetectionAccepted"
-              examples:
-                accepted:
-                  value:
-                    detectionId: 0196fb3d-4ad7-7d1e-9f49-5d5148d2babc
-                    status: PENDING
-                    estimatedTimeMs: 1500
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "422":
-          $ref: "#/components/responses/UnprocessableEntity"
-        "500":
-          $ref: "#/components/responses/InternalServerError"
-=======
               $ref: '#/components/schemas/FaceMatchRequest'
             examples:
               imageReference:
@@ -182,78 +115,10 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '500':
           $ref: '#/components/responses/InternalServerError'
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
 
   /vision/detections/{detectionId}:
     get:
       operationId: getDetectionResult
-<<<<<<< HEAD
-      summary: Lấy kết quả nhận dạng
-      description: Camera Stream lấy kết quả nhận dạng từ AI Vision theo ID.
-      tags: [vision]
-      parameters:
-        - $ref: "#/components/parameters/DetectionId"
-      responses:
-        "200":
-          description: Kết quả nhận dạng
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DetectionResult"
-              examples:
-                personResult:
-                  value:
-                    detectionId: 0196fb3d-4ad7-7d1e-9f49-5d5148d2babc
-                    targetType: PERSON
-                    status: COMPLETED
-                    createdAt: "2026-05-14T08:01:00Z"
-                    resolvedAt: "2026-05-14T08:01:02Z"
-                    confidence: 0.98
-                    hasMask: false
-                vehicleResult:
-                  value:
-                    detectionId: 0196fb3d-4ad7-7d1e-9f49-5d5148d2babd
-                    targetType: VEHICLE
-                    status: COMPLETED
-                    createdAt: "2026-05-14T08:02:00Z"
-                    resolvedAt: null
-                    confidence: 0.95
-                    licensePlate: 51H-12345
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "500":
-          $ref: "#/components/responses/InternalServerError"
-
-  /vision/models/info:
-    get:
-      operationId: getModelsInfo
-      summary: Lấy thông tin model AI
-      description: Thông tin về các model AI đang chạy.
-      tags: [vision]
-      responses:
-        "200":
-          description: Danh sách models
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ModelInfoResponse"
-              examples:
-                models:
-                  value:
-                    models:
-                      - modelId: YOLOV8-PERSON
-                        version: 8.1.0
-                        accuracy: 0.95
-                      - modelId: LPR-NET
-                        version: 2.0.1
-                        accuracy: 0.98
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "500":
-          $ref: "#/components/responses/InternalServerError"
-=======
       summary: Lấy kết quả face-match theo ID phát hiện
       description: Trả về chi tiết đối tượng đã được AI Vision phân tích.
       tags: [vision]
@@ -312,7 +177,6 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '500':
           $ref: '#/components/responses/InternalServerError'
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
 
 components:
   securitySchemes:
@@ -326,12 +190,6 @@ components:
       name: detectionId
       in: path
       required: true
-<<<<<<< HEAD
-      description: UUID của detection.
-      schema:
-        type: string
-        format: uuid
-=======
       description: UUID của kết quả face-match.
       schema:
         type: string
@@ -355,7 +213,6 @@ components:
         minimum: 1
         maximum: 100
         default: 20
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
 
   schemas:
     HealthStatus:
@@ -367,87 +224,17 @@ components:
           type: string
           enum: [ok]
           description: Trạng thái service.
-<<<<<<< HEAD
-=======
           example: ok
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
         service:
           type: string
           minLength: 2
           maxLength: 80
           description: Tên service.
-<<<<<<< HEAD
-=======
           example: ai-vision-service
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
         time:
           type: string
           format: date-time
           description: Thời điểm kiểm tra.
-<<<<<<< HEAD
-
-    DetectionRequest:
-      type: object
-      additionalProperties: false
-      required: [cameraId, imageUrl, timestamp]
-      properties:
-        cameraId:
-          type: string
-          minLength: 2
-          maxLength: 50
-          pattern: "^CAM-[A-Z0-9-]+$"
-        imageUrl:
-          type: string
-          format: uri
-        timestamp:
-          type: string
-          format: date-time
-
-    DetectionAccepted:
-      type: object
-      additionalProperties: false
-      required: [detectionId, status, estimatedTimeMs]
-      properties:
-        detectionId:
-          type: string
-          format: uuid
-        status:
-          type: string
-          enum: [PENDING, PROCESSING]
-        estimatedTimeMs:
-          type: integer
-          minimum: 0
-
-    DetectionResult:
-      oneOf:
-        - $ref: "#/components/schemas/PersonDetectionResult"
-        - $ref: "#/components/schemas/VehicleDetectionResult"
-      discriminator:
-        propertyName: targetType
-        mapping:
-          PERSON: "#/components/schemas/PersonDetectionResult"
-          VEHICLE: "#/components/schemas/VehicleDetectionResult"
-
-    BaseDetectionResult:
-      type: object
-      required: [detectionId, targetType, status, createdAt]
-      properties:
-        detectionId:
-          type: string
-          format: uuid
-        targetType:
-          type: string
-          enum: [PERSON, VEHICLE]
-        status:
-          type: string
-          enum: [COMPLETED, FAILED]
-        createdAt:
-          type: string
-          format: date-time
-        resolvedAt:
-          type: [string, "null"]
-          format: date-time
-=======
           example: '2026-05-19T08:00:00Z'
 
     FaceMatchRequest:
@@ -549,65 +336,10 @@ components:
           type: [string, 'null']
           description: Mã người được nhận diện hoặc null nếu không xác định.
           example: PERSON-2026-007
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
         confidence:
           type: number
           minimum: 0
           maximum: 1
-<<<<<<< HEAD
-
-    PersonDetectionResult:
-      allOf:
-        - $ref: "#/components/schemas/BaseDetectionResult"
-        - type: object
-          required: [targetType, hasMask]
-          properties:
-            targetType:
-              type: string
-              const: PERSON
-            hasMask:
-              type: boolean
-
-    VehicleDetectionResult:
-      allOf:
-        - $ref: "#/components/schemas/BaseDetectionResult"
-        - type: object
-          required: [targetType, licensePlate]
-          properties:
-            targetType:
-              type: string
-              const: VEHICLE
-            licensePlate:
-              type: string
-              minLength: 5
-              maxLength: 15
-
-    ModelInfoResponse:
-      type: object
-      additionalProperties: false
-      required: [models]
-      properties:
-        models:
-          type: array
-          minItems: 0
-          items:
-            type: object
-            additionalProperties: false
-            required: [modelId, version, accuracy]
-            properties:
-              modelId:
-                type: string
-                minLength: 2
-                maxLength: 50
-              version:
-                type: string
-                minLength: 1
-                maxLength: 20
-              accuracy:
-                type: number
-                minimum: 0
-                maximum: 1
-=======
           description: Độ tin cậy của kết quả match.
           example: 0.92
         modelVersion:
@@ -703,7 +435,6 @@ components:
           type: boolean
           description: Còn dữ liệu ở trang sau hay không.
           example: false
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
 
     Problem:
       type: object
@@ -713,32 +444,18 @@ components:
         type:
           type: string
           format: uri
-<<<<<<< HEAD
-=======
           description: URI định danh loại lỗi.
           example: https://campus.local/errors/validation
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
         title:
           type: string
           minLength: 3
           maxLength: 120
-<<<<<<< HEAD
-=======
           description: Tiêu đề lỗi ngắn gọn.
           example: Dữ liệu không hợp lệ
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
         status:
           type: integer
           minimum: 400
           maximum: 599
-<<<<<<< HEAD
-        detail:
-          type: [string, "null"]
-          maxLength: 500
-        instance:
-          type: [string, "null"]
-          format: uri
-=======
           description: HTTP status code.
           example: 400
         detail:
@@ -751,7 +468,6 @@ components:
           format: uri
           description: URI của request gây lỗi.
           example: https://campus.local/vision/face-match
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
         errors:
           type: array
           minItems: 0
@@ -765,26 +481,17 @@ components:
                 type: string
                 minLength: 1
                 maxLength: 80
-<<<<<<< HEAD
-=======
                 example: input.imageRef
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
               code:
                 type: string
                 minLength: 2
                 maxLength: 80
-<<<<<<< HEAD
-=======
                 example: ENUM_MISMATCH
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
               message:
                 type: string
                 minLength: 3
                 maxLength: 200
-<<<<<<< HEAD
-=======
                 example: inputType phải là IMAGE_REF hoặc FACE_EMBEDDING
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
 
   responses:
     BadRequest:
@@ -792,50 +499,29 @@ components:
       content:
         application/problem+json:
           schema:
-<<<<<<< HEAD
-            $ref: "#/components/schemas/Problem"
-=======
             $ref: '#/components/schemas/Problem'
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
           example:
             type: https://campus.local/errors/validation
             title: Dữ liệu không hợp lệ
             status: 400
             detail: Payload không đúng JSON Schema
-<<<<<<< HEAD
-            instance: https://campus.local/vision/detect
-            errors:
-              - field: cameraId
-                code: PATTERN_MISMATCH
-                message: cameraId không đúng định dạng CAM-
-=======
             instance: https://campus.local/vision/face-match
             errors:
               - field: input.imageRef
                 code: REQUIRED_FIELD
                 message: imageRef là bắt buộc khi inputType là IMAGE_REF
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
 
     Unauthorized:
       description: Thiếu hoặc sai thông tin xác thực
       content:
         application/problem+json:
           schema:
-<<<<<<< HEAD
-            $ref: "#/components/schemas/Problem"
-=======
             $ref: '#/components/schemas/Problem'
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
           example:
             type: https://campus.local/errors/unauthorized
             title: Chưa xác thực
             status: 401
             detail: Thiếu Bearer token
-<<<<<<< HEAD
-            instance: https://campus.local/vision/detect
-            errors: []
-
-=======
             instance: https://campus.local/vision/face-match
             errors: []
 
@@ -846,22 +532,11 @@ components:
           schema:
             $ref: '#/components/schemas/Problem'
 
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
     NotFound:
       description: Resource không tồn tại
       content:
         application/problem+json:
           schema:
-<<<<<<< HEAD
-            $ref: "#/components/schemas/Problem"
-          example:
-            type: https://campus.local/errors/not-found
-            title: Tài nguyên không tồn tại
-            status: 404
-            detail: Không tìm thấy kết quả nhận dạng với ID đã cung cấp
-            instance: https://campus.local/vision/detections/0196fb3d-4ad7-7d1e-9f49-5d5148d2babc
-            errors: []
-=======
             $ref: '#/components/schemas/Problem'
 
     Conflict:
@@ -870,40 +545,17 @@ components:
         application/problem+json:
           schema:
             $ref: '#/components/schemas/Problem'
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
 
     UnprocessableEntity:
       description: Payload đúng định dạng nhưng không hợp lệ về nghiệp vụ
       content:
         application/problem+json:
           schema:
-<<<<<<< HEAD
-            $ref: "#/components/schemas/Problem"
-          example:
-            type: https://campus.local/errors/unprocessable
-            title: Không thể xử lý yêu cầu
-            status: 422
-            detail: Camera ID không tồn tại hoặc đã bị hủy kích hoạt trong hệ thống
-            instance: https://campus.local/vision/detect
-            errors: []
-=======
             $ref: '#/components/schemas/Problem'
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
 
     InternalServerError:
       description: Lỗi không mong muốn phía server
       content:
         application/problem+json:
           schema:
-<<<<<<< HEAD
-            $ref: "#/components/schemas/Problem"
-          example:
-            type: https://campus.local/errors/internal
-            title: Lỗi hệ thống
-            status: 500
-            detail: Đã xảy ra lỗi không mong muốn khi kết nối với module xử lý AI
-            instance: https://campus.local/vision/detect
-            errors: []
-=======
             $ref: '#/components/schemas/Problem'
->>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
