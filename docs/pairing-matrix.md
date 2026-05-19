@@ -1,6 +1,11 @@
 # Dependency Map và Pairing Matrix — Smart Campus Operations Platform
 
+<<<<<<< HEAD
+Tài liệu này dùng để xác định các cặp phụ thuộc giữa service trong Smart Campus.
+
+=======
 Tài liệu này dùng để xác định các cặp phụ thuộc giữa service trong Smart Campus. 
+>>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
 > Lưu ý: Lab 02 tập trung vào **OpenAPI 3.1 cho REST sync**. Các cặp Queue async vẫn được đưa vào ma trận để sinh viên thấy dependency đầy đủ, nhưng phần đặc tả chi tiết topic/message schema sẽ được chuyển sâu sang Lab 03 bằng AsyncAPI hoặc event contract riêng.
 
 | # | Consumer | Provider | Mục đích | Cơ chế | Phạm vi Lab 02 | User story |

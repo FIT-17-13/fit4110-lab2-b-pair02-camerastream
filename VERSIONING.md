@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+# Versioning Policy
+
+- Hợp đồng sử dụng SemVer (Major.Minor.Patch).
+- Hiện tại: `1.0.0`.
+- Các thay đổi thêm field sẽ tăng Minor (1.1.0).
+- Các thay đổi phá vỡ tương thích (breaking changes) như xóa field, đổi kiểu dữ liệu sẽ tăng Major (2.0.0).
+=======
 # VERSIONING
 
 ## Principle
@@ -29,3 +37,4 @@ This repository follows semantic versioning for contract changes:
 - Maintain backward compatibility for existing Consumer fields whenever possible.
 - Use new schema versions or separate endpoints for breaking changes.
 - Keep error and authentication handling stable across minor releases.
+>>>>>>> 45f52f59e2299856b27574d089c9f6fbc91febd6
