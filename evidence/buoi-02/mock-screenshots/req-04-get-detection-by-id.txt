@@ -1,0 +1,28 @@
+========================================
+REQUEST #4: Get Detection Result by ID
+========================================
+
+COMMAND:
+$ curl -i http://localhost:4010/vision/detections/8dd344a4-66c3-4c2b-bc07-a4337f8d2bbb \
+  -H "Authorization: Bearer test-token"
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 390
+
+{
+  "requestId": "3542ea6f-8cd4-4f16-9a8e-12b72e9f7a99",
+  "detectionId": "8dd344a4-66c3-4c2b-bc07-a4337f8d2bbb",
+  "matchStatus": "MATCH",
+  "matchedPersonId": "PERSON-2026-007",
+  "confidence": 0.92,
+  "modelVersion": "v1.3.0",
+  "detail": "Khớp khuôn mặt cao.",
+  "processedAt": "2026-05-19T08:00:01Z",
+  "traceId": "trace-20260519-01",
+  "reviewedBy": null
+}
+
+RESPONSE STATUS: 200 OK
+SUCCESS: Retrieved detection result by ID with union type null in reviewedBy field.
+========================================
